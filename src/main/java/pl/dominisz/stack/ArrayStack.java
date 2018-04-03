@@ -6,19 +6,35 @@ package pl.dominisz.stack;
  */
 public class ArrayStack<E> implements Stack<E> {
 
-    @Override
-    public void push(E element) {
+    private static final int DEFAULT_SIZE = 10;
+    private Object[] elements;
+    private int count;
 
+    public ArrayStack() {
+        elements = new Object[DEFAULT_SIZE];
+        count = 0;
     }
 
     @Override
+    public void push(E element) {
+        elements[count] = element;
+        count++;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
     public E pop() {
-        return null;
+        if (count > 0) {
+            count--;
+            return (E)elements[count];
+        } else {
+            throw new IllegalStateException("Stack is empty");
+        }
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return count == 0;
     }
 
 }
